@@ -14,7 +14,6 @@ from airflow.operators.python import PythonOperator
 default_args = {
     "owner": "airflow",
     "start_date": datetime(2025, 1, 1),
-    "catchup": False,
     "retries": 1,
 }
 
@@ -57,6 +56,7 @@ with DAG(
     dag_id="retail_medallion_pipeline",
     default_args=default_args,
     schedule_interval="@hourly",
+    catchup=False,
     description="Retail ETL: Bronze → Silver → Gold (star schema in PostgreSQL)",
     tags=["retail", "etl", "medallion"],
 ) as dag:
