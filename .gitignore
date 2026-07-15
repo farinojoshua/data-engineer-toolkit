@@ -1,6 +1,28 @@
-airflow/dags/
+# Airflow data (raw, bronze, silver, gold) - too large for git
 airflow/data/
-airflow/plugins/
+
+# Airflow state files
+airflow/data/state/
+
+# Track DAGs and plugins (pipeline code)
+# airflow/dags/ - now tracked
+# airflow/plugins/ - now tracked
+
 spark/scripts/
 kafka/scripts/
 db/sql/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Parquet and CSV data files
+*.parquet
+*.csv
+*.meta.json
+
+# Environment
+.env.local

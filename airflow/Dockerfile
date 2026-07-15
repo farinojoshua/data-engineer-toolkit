@@ -20,4 +20,8 @@ RUN pip install --no-cache-dir \
     "pyspark==3.5.4" \
     "apache-airflow[statsd]==2.10.5" \
     "apache-airflow-providers-apache-hive==9.0.0" \
-    "apache-airflow-providers-apache-spark==5.0.0"
+    "apache-airflow-providers-apache-spark==5.0.0" \
+    "pandas" \
+    "pyarrow" \
+    "psycopg2-binary" \
+    "apache-airflow-providers-postgres"
