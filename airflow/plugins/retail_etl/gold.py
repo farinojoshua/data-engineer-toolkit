@@ -463,8 +463,13 @@ def upsert_fact_sales(engine, schema: str, silver_dir: str) -> None:
     # Drop rows missing the business key
     df = df[df["order_item_id"].notna() & (df["order_item_id"].astype(str).str.strip() != "")]
 
-    # Convert pandas NA to Python None for psycopg2
-    df = df.where(pd.notnull(df), None)
+    # Convert Int64 nullable integers to plain Python int/None (psycopg2 can't handle pd.NA)
+    for col in ["quantity", "date_key", "customer_key", "product_key", "store_key"]:
+        if col in df.columns:
+            df[col] = df[col].apply(lambda x: int(x) if pd.notna(x) else None)
+
+    # Convert remaining NA to Python None for psycopg2
+    df = df.astype(object).where(df.notna(), None)
 
     sql = f"""
         INSERT INTO {schema}.fact_sales
